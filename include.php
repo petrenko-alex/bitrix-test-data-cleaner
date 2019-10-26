@@ -1,4 +1,3 @@
 <?php B_PROLOG_INCLUDED === true || die();
 
-
-// TODO: composer autoload goes here
+require_once('vendor/autoload.php');
