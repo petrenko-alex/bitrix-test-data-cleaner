@@ -43,3 +43,4 @@ test*
 /*.xml
 
 /_site
+/vendor
