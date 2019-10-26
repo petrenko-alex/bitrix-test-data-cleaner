@@ -1,4 +1,4 @@
-<?php
+<?php namespace Petrenko\TestDataCleaner\Entities;
 
 // TODO: PHP Docs
 abstract class BaseCleanableEntity

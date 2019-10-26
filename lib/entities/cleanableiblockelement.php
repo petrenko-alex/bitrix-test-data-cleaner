@@ -1,4 +1,4 @@
-<?php
+<?php namespace Petrenko\TestDataCleaner\Entities;
 
 use Bitrix\Iblock\ElementTable;
 
