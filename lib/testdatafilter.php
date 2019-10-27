@@ -5,10 +5,15 @@
  * Но основе настроек определения тестовых данных подготавливает строку фильтра
  * для запроса тестовых данных.
  *
+ * TODO: Tests
+ *
  * @package Petrenko\TestDataCleaner
  */
 class TestDataFilter
 {
+    public const DEFAULT_FILTER_TYPE = 'prefix';
+    public const DEFAULT_FILTER_KEYWORD = '[test]';
+
     protected $type = '';
     protected $keyword;
 
@@ -17,8 +22,22 @@ class TestDataFilter
         // TODO: Get from options: prefix or postfix
         // TODO: Get from options: keyword
 
-        $this->keyword = '[test]';
-        $this->type = 'prefix';
+        $this->type = static::DEFAULT_FILTER_TYPE;
+        $this->keyword = static::DEFAULT_FILTER_KEYWORD;
+    }
+
+    /**
+     * Возвращает объект с параметрами по умолчанию.
+     *
+     * @return TestDataFilter
+     */
+    public static function getDefault()
+    {
+        $testDataFilter = new static();
+        $testDataFilter->setType(static::DEFAULT_FILTER_TYPE);
+        $testDataFilter->setKeyword(static::DEFAULT_FILTER_KEYWORD);
+
+        return $testDataFilter;
     }
 
     /**
@@ -51,5 +70,29 @@ class TestDataFilter
         return $this->type == 'prefix'
             ? ($this->keyword . '%')
             : ('%' . $this->keyword);
+    }
+
+    /**
+     * @param string $type
+     *
+     * @return TestDataFilter
+     */
+    protected function setType(string $type): TestDataFilter
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @param string $keyword
+     *
+     * @return TestDataFilter
+     */
+    protected function setKeyword(string $keyword): TestDataFilter
+    {
+        $this->keyword = $keyword;
+
+        return $this;
     }
 }
