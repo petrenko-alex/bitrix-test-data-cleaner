@@ -3,6 +3,7 @@
 use CIBlock;
 use CIBlockType;
 use CIBlockElement;
+use Petrenko\TestDataCleaner\TestDataFilter;
 
 /**
  * Тестовое окружение для сущностей модуля iblock.
@@ -63,16 +64,28 @@ class IblockTestEnvironment extends TestEnvironment
 
     protected function createIbElements()
     {
-        $iblockElementObj = new CIBlockElement();
-        $id = $iblockElementObj->Add(
+        $iblockId = current($this->ibIds);
+        $iblockElementsFields = array(
             array(
-              'IBLOCK_ID' => current($this->ibIds),
-              'NAME' => 'petrenko_tdc_ibe_1'
+                'IBLOCK_ID' => $iblockId,
+                'NAME' => 'petrenko_tdc_ibe_1'
             ),
-            false,
-            false
+            array(
+                'IBLOCK_ID' => $iblockId,
+                'NAME' => TestDataFilter::DEFAULT_FILTER_KEYWORD .  'petrenko_tdc_ibe_2'
+            ),
+            array(
+                'IBLOCK_ID' => $iblockId,
+                'NAME' => 'petrenko_tdc_ibe_3 ' . TestDataFilter::DEFAULT_FILTER_KEYWORD
+            )
         );
-        $this->ibElementIds[] = $id;
+
+        $iblockElementObj = new CIBlockElement();
+        foreach ($iblockElementsFields as $fields)
+        {
+            $id = $iblockElementObj->Add($fields, false, false);
+            $this->ibElementIds[] = $id;
+        }
     }
 
     protected function removeIbTypes()
