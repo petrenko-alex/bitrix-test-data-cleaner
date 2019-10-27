@@ -1,20 +1,22 @@
 <?php namespace Petrenko\TestDataCleaner\Entities;
 
+use Petrenko\TestDataCleaner\TestDataFilter;
+
 // TODO: PHP Docs
 abstract class BaseCleanableEntity
 {
-    protected $searchKeyWord = '';
+    protected $testDataFilter = '';
 
     protected $elementsId = array();
 
     /**
      * BaseCleanableEntity constructor.
      *
-     * @param string $searchKeyWord
+     * @param TestDataFilter $testDataFilter
      */
-    public function __construct(string $searchKeyWord)
+    public function __construct(TestDataFilter $testDataFilter)
     {
-        $this->searchKeyWord = $searchKeyWord;
+        $this->testDataFilter = $testDataFilter;
     }
 
     public function clean() : void
@@ -23,11 +25,6 @@ abstract class BaseCleanableEntity
         if ($this->elementsId) {
             $this->removeElements();
         }
-    }
-
-    protected function getKeyWordFilter() : string
-    {
-        return $this->searchKeyWord . '%';
     }
 
     abstract public function findElements() : array;

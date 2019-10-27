@@ -9,7 +9,7 @@ class CleanableIblockElement extends BaseCleanableEntity
     {
         $elements = ElementTable::getList(array(
             'filter' => array(
-                'NAME' => $this->getKeyWordFilter(),
+                'NAME' => $this->testDataFilter->getFilter(),
             ),
             'select' => array('ID', 'NAME'),
         ))->fetchAll();
