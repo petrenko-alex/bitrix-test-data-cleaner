@@ -4,7 +4,7 @@ use CIBlockType;
 use Bitrix\Iblock\TypeTable;
 
 // TODO: PHP Doc
-class CleanableIblockType extends BaseCleanableEntity
+class TestIblockType extends BaseTestEntity
 {
     public function findElements(): array
     {

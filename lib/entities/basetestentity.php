@@ -3,7 +3,7 @@
 use Petrenko\TestDataCleaner\TestDataFilter;
 
 // TODO: PHP Docs
-abstract class BaseCleanableEntity
+abstract class BaseTestEntity
 {
     protected $testDataFilter = '';
 
