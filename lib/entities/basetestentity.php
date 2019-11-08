@@ -6,7 +6,6 @@ use Petrenko\TestDataCleaner\TestDataFilter;
 abstract class BaseTestEntity
 {
     protected $testDataFilter = '';
-
     protected $elementsId = array();
 
     /**
@@ -19,7 +18,7 @@ abstract class BaseTestEntity
         $this->testDataFilter = $testDataFilter;
     }
 
-    public function clean() : void
+    public function clean(): void
     {
         $this->elementsId = $this->findElements();
         if ($this->elementsId) {
@@ -27,7 +26,7 @@ abstract class BaseTestEntity
         }
     }
 
-    abstract public function findElements() : array;
+    abstract public function findElements(): array;
 
-    abstract protected function removeElements() : void;
+    abstract protected function removeElements(): void;
 }
