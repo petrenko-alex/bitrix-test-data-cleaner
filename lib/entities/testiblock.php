@@ -1,6 +1,5 @@
 <?php namespace Petrenko\TestDataCleaner\Entities;
 
-use CIBlock;
 use Bitrix\Iblock\IblockTable;
 
 // TODO: PHP Doc
