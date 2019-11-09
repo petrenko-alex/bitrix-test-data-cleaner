@@ -1,8 +1,9 @@
 <?php namespace Petrenko\TestDataCleaner\Entities;
 
-// TODO: PHP Doc
+use CIBlockSection;
 use Bitrix\Iblock\SectionTable;
 
+// TODO: PHP Doc
 class TestIblockSection extends BaseTestEntity
 {
     public function findElements(): array
@@ -21,7 +22,7 @@ class TestIblockSection extends BaseTestEntity
     {
         foreach ($this->elementsId as $elementId)
         {
-            SectionTable::Delete($elementId);
+            CIBlockSection::Delete($elementId);
         }
     }
 }

@@ -1,5 +1,6 @@
 <?php namespace Petrenko\TestDataCleaner\Entities;
 
+use CIBlock;
 use Bitrix\Iblock\IblockTable;
 
 // TODO: PHP Doc
@@ -21,7 +22,7 @@ class TestIblock extends BaseTestEntity
     {
         foreach ($this->elementsId as $elementId)
         {
-            IblockTable::delete($elementId);
+            CIBlock::Delete($elementId);
         }
     }
 }
