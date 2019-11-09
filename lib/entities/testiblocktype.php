@@ -22,7 +22,7 @@ class TestIblockType extends BaseTestEntity
     {
         foreach ($this->elementsId as $elementId)
         {
-            CIBlockType::Delete($elementId);
+            TypeTable::Delete($elementId);
         }
     }
 }
