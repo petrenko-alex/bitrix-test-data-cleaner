@@ -4,11 +4,13 @@ use CIBlock;
 use CIBlockType;
 use CIBlockSection;
 use CIBlockElement;
+use CIBlockProperty;
 use Bitrix\Iblock\TypeTable;
 use Bitrix\Iblock\IblockTable;
 use Bitrix\Main\Type\DateTime;
 use Bitrix\Iblock\ElementTable;
 use Bitrix\Iblock\SectionTable;
+use Bitrix\Iblock\PropertyTable;
 use Petrenko\TestDataCleaner\TestDataFilter;
 
 /**
@@ -19,6 +21,7 @@ class IblockTestEnvironment
     private static $prefix = 'petrenko_tdc_';
     private static $ibTypeIds = [];
     private static $ibIds = [];
+    private static $ibPropIds = [];
     private static $ibSectionIds = [];
     private static $ibElementIds = [];
 
@@ -26,6 +29,7 @@ class IblockTestEnvironment
     {
         static::createIbTypes();
         static::createIbs();
+        static::createIbProps();
         static::createIbSections();
         static::createIbElements();
     }
@@ -34,6 +38,7 @@ class IblockTestEnvironment
     {
         static::removeIbElements();
         static::removeIbSections();
+        static::removeIbProps();
         static::removeIbs();
         static::removeIbTypes();
     }
@@ -130,6 +135,41 @@ class IblockTestEnvironment
             $id = $iblock->Add($fields);
             if ($id !== false)
                 static::$ibIds[] = $id;
+        }
+    }
+
+    protected static function createIbProps(): void
+    {
+        $commonFields = [
+            'IBLOCK_ID' => current(static::$ibIds),
+        ];
+        $ibPropFields = [
+            array_merge($commonFields, [
+                'NAME' => static::$prefix . 'ibp_1',
+                'CODE' => static::$prefix . 'ibp_1',
+            ]),
+            array_merge($commonFields, [
+                'NAME' => TestDataFilter::DEFAULT_FILTER_KEYWORD . static::$prefix . 'ibp_2',
+                'CODE' => static::$prefix . 'ibp_2',
+            ]),
+            array_merge($commonFields, [
+                'NAME' => static::$prefix . 'ibp_3 ' . TestDataFilter::DEFAULT_FILTER_KEYWORD,
+                'CODE' => static::$prefix . 'ibp_3',
+            ]),
+            array_merge($commonFields, [
+                'NAME' => static::$prefix . 'ibp_4' . TestDataFilter::DEFAULT_FILTER_KEYWORD . ' extra',
+                'CODE' => static::$prefix . 'ibp_4',
+            ]),
+        ];
+
+        $iblockProp = new CIBlockProperty();
+        foreach ($ibPropFields as $fields)
+        {
+            $id = $iblockProp->Add($fields);
+            if ($id !== false)
+            {
+                static::$ibPropIds[] = $id;
+            }
         }
     }
 
@@ -231,6 +271,19 @@ class IblockTestEnvironment
         foreach ($ibs as $ib)
         {
             CIBlock::Delete($ib['ID']);
+        }
+    }
+
+    protected static function removeIbProps(): void
+    {
+        $ibProps = PropertyTable::getList([
+            'filter' => ['NAME' => '%' . static::$prefix . '%'],
+            'select' => ['ID'],
+        ])->fetchAll();
+
+        foreach ($ibProps as $ibProp)
+        {
+            CIBlockProperty::Delete($ibProp['ID']);
         }
     }
 
