@@ -127,22 +127,29 @@ class UserTestEnvironment
             ]),
             array_merge($commonFields, [
                 'FIELD_NAME' => strtoupper('uf_' . static::$prefix . 'uf_6'),
-                'LIST_FILTER_LABEL' => [
-                    'ru' => '',
-                    'en' => TestDataFilter::DEFAULT_FILTER_KEYWORD . static::$prefix . 'uf_6',
+                'ERROR_MESSAGE' => [
+                    'ru' => TestDataFilter::DEFAULT_FILTER_KEYWORD . static::$prefix . 'uf_6',
+                    'en' => '',
                 ],
             ]),
             array_merge($commonFields, [
                 'FIELD_NAME' => strtoupper('uf_' . static::$prefix . 'uf_7'),
-                'ERROR_MESSAGE' => [
-                    'ru' => static::$prefix . 'uf_7' . TestDataFilter::DEFAULT_FILTER_KEYWORD,
-                    'en' => static::$prefix . 'uf_7' . TestDataFilter::DEFAULT_FILTER_KEYWORD,
+                'LIST_FILTER_LABEL' => [
+                    'ru' => '',
+                    'en' => TestDataFilter::DEFAULT_FILTER_KEYWORD . static::$prefix . 'uf_7',
                 ],
             ]),
             array_merge($commonFields, [
                 'FIELD_NAME' => strtoupper('uf_' . static::$prefix . 'uf_8'),
+                'ERROR_MESSAGE' => [
+                    'ru' => static::$prefix . 'uf_8' . TestDataFilter::DEFAULT_FILTER_KEYWORD,
+                    'en' => static::$prefix . 'uf_8' . TestDataFilter::DEFAULT_FILTER_KEYWORD,
+                ],
+            ]),
+            array_merge($commonFields, [
+                'FIELD_NAME' => strtoupper('uf_' . static::$prefix . 'uf_9'),
                 'HELP_MESSAGE' => [
-                    'ru' => static::$prefix . 'uf_7' . TestDataFilter::DEFAULT_FILTER_KEYWORD . 'extra',
+                    'ru' => static::$prefix . 'uf_9' . TestDataFilter::DEFAULT_FILTER_KEYWORD . 'extra',
                     'en' => '',
                 ],
             ]),
