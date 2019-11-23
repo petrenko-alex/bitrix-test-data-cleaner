@@ -14,6 +14,8 @@ class TestDataFilter
     public const DEFAULT_FILTER_TYPE = 'prefix';
     public const DEFAULT_FILTER_KEYWORD = '[test]';
 
+    protected const REGEX_DELIMITER = '/';
+
     protected $type = '';
     protected $keyword;
 
@@ -61,15 +63,34 @@ class TestDataFilter
     }
 
     /**
-     * Возвращает строку для фильтра запроса тестовых данных.
+     * Возвращает фильтр для поиска тестовых данных через API Bitrix.
+     * Используется в запросах к БД.
      *
      * @return string
      */
     public function getFilter(): string
     {
-        return $this->type == 'prefix'
+        return $this->type === 'prefix'
             ? ($this->keyword . '%')
             : ('%' . $this->keyword);
+    }
+
+    /**
+     * Возвращает Regex фильтр для поиска тестовых данных с помощью PHP.
+     * Используется для ручного поиска тестовых данных
+     *
+     * @return string
+     */
+    public function getFilterRegex(): string
+    {
+        $keyword = preg_quote($this->keyword, static::REGEX_DELIMITER);
+
+        $regex = $this->type === 'prefix'
+            ? ('^' . $keyword)
+            : ($keyword . '$');
+        $regex = static::REGEX_DELIMITER . $regex . static::REGEX_DELIMITER;
+
+        return $regex;
     }
 
     /**
