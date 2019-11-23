@@ -1,6 +1,5 @@
 <?php namespace Petrenko\TestDataCleaner\Entities;
 
-
 // TODO: PHP Doc
 use Bitrix\Sale\Order;
 use Bitrix\Sale\Payment;
@@ -25,39 +24,44 @@ class TestOrder extends BaseTestEntity
 
     protected function removeElements(): void
     {
-        // TODO: refactor
-        foreach ($this->elementsId as $elementId)
-        {
-            $order = Order::load($elementId);
-            if ($order)
-            {
-
-                foreach ($order->getPaymentCollection() as $orderPayment)
-                {
-                    /** @var Payment $orderPayment */
-                    $orderPayment->setField('PAID', false);
-                }
-
-                foreach ($order->getShipmentCollection() as $orderShipment)
-                {
-                    /** @var Shipment $orderShipment */
-                    if (!$orderShipment->isSystem())
-                    {
-                        $orderShipment->setField('DEDUCTED', false);
-                    }
-                }
-
-                OrderDiscountDataTable::clearByOrder($order->getId());
-                OrderCouponsTable::clearByOrder($order->getId());
-            }
-            $order->save();
-
-            $res = Order::delete($elementId);
+        foreach ($this->elementsId as $elementId) {
+            $this->releaseOrder($elementId);
+            Order::delete($elementId);
         }
     }
 
-    private function releaseOrder($orderId)
+    private function releaseOrder($orderId): void
     {
+        $order = Order::load($orderId);
+        if ($order) {
+            $this->releasePayments($order);
+            $this->releaseShipments($order);
+            $this->releaseDiscounts($order);
+        }
+        $order->save();
+    }
 
+    private function releasePayments(Order $order): void
+    {
+        foreach ($order->getPaymentCollection() as $orderPayment) {
+            /** @var Payment $orderPayment */
+            $orderPayment->setField('PAID', false);
+        }
+    }
+
+    private function releaseShipments(Order $order): void
+    {
+        foreach ($order->getShipmentCollection() as $orderShipment) {
+            /** @var Shipment $orderShipment */
+            if (!$orderShipment->isSystem()) {
+                $orderShipment->setField('DEDUCTED', false);
+            }
+        }
+    }
+
+    private function releaseDiscounts(Order $order): void
+    {
+        OrderDiscountDataTable::clearByOrder($order->getId());
+        OrderCouponsTable::clearByOrder($order->getId());
     }
 }
