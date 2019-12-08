@@ -17,36 +17,21 @@ class TestDataCleaner
     {
         $this->entities = array_filter($this->entities);
         $this->entities = array_unique($this->entities);
-        $this->entities = array_intersect($this->entities, $this->getOrderedEntities());
+        $this->entities = array_intersect($this->entities, EntitiesFactory::getOrderedEntities());
 
         $this->sortEntities();
     }
 
     private function sortEntities()
     {
-        $correctOrder = $this->getOrderedEntities();
+        $correctOrder = EntitiesFactory::getOrderedEntities();
 
         uasort($this->entities, function($val1, $val2) use ($correctOrder) {
             return array_search($val1, $correctOrder) <=> array_search($val2, $correctOrder);
         });
     }
 
-    private function getOrderedEntities(): array
-    {
-        return [
-            'order',
-            'user',
-            'iblockelement',
-            'iblocksection',
-            'iblockprop',
-            'iblock',
-            'iblocktype',
-            'hlblock',
-            'uf',
-        ];
-    }
-
-    public function clean(array $entities)
+    public function clean()
     {
         // TODO: go foreach and clean
     }
