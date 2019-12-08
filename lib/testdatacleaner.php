@@ -1,16 +1,19 @@
 <?php namespace Petrenko\TestDataCleaner;
 
+use Petrenko\TestDataCleaner\Entities\BaseTestEntity;
+
 class TestDataCleaner
 {
     // TODO: think about making some methods protected in order to extend class
     private $entities = [];
+    private $testDataFilter = null;
 
     public function __construct(array $entities)
     {
         $this->entities = $entities;
+        $this->testDataFilter = new TestDataFilter();
 
         $this->prepareEntities();
-        // TODO: get classes
     }
 
     private function prepareEntities()
@@ -26,9 +29,12 @@ class TestDataCleaner
     {
         $correctOrder = EntitiesFactory::getOrderedEntities();
 
-        uasort($this->entities, function($val1, $val2) use ($correctOrder) {
-            return array_search($val1, $correctOrder) <=> array_search($val2, $correctOrder);
-        });
+        uasort(
+            $this->entities,
+            function ($val1, $val2) use ($correctOrder) {
+                return array_search($val1, $correctOrder) <=> array_search($val2, $correctOrder);
+            }
+        );
     }
 
     public function clean()
@@ -36,8 +42,26 @@ class TestDataCleaner
         // TODO: go foreach and clean
     }
 
-    public function show(array $entities)
+    public function show(): array
     {
-        // TODO: go foreach and collect
+        $testElements = [];
+
+        foreach ($this->entities as $entity)
+        {
+            $testElements[$entity] = [];
+
+            $entityClass = EntitiesFactory::getClassByName($entity);
+            if (!$entityClass)
+                continue;
+
+            $testEntity = new $entityClass($this->testDataFilter);
+            if (!$testEntity)
+                continue;
+
+            /** @var BaseTestEntity $testEntity */
+            $testElements[$entity] = $testEntity->findElements();
+        }
+
+        return $testElements;
     }
 }
