@@ -1,6 +1,8 @@
 <? if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 
 use Bitrix\Main;
+use Bitrix\Main\Application;
+use Bitrix\Main\IO\Directory;
 use Bitrix\Main\Localization\Loc;
 
 Loc::loadMessages(__FILE__);
@@ -40,31 +42,38 @@ class petrenko_testdatacleaner extends CModule
     public function doInstall()
     {
         global $APPLICATION;
-        if($this->checkMinRequirements())
-        {
-            try
-            {
-                Main\ModuleManager::registerModule($this->MODULE_ID);
-            }
-            catch (\Exception $e)
-            {
-                $APPLICATION->ThrowException($e->getMessage());
 
-                return false;
-            }
-
-            return true;
-        }
-        else
-        {
+        if (!$this->checkMinRequirements()) {
             return false;
         }
+
+        try
+        {
+            $this->InstallFiles();
+
+            Main\ModuleManager::registerModule($this->MODULE_ID);
+        }
+        catch (\Exception $e)
+        {
+            $APPLICATION->ThrowException($e->getMessage());
+
+            return false;
+        }
+
+        return true;
+    }
+
+    function InstallFiles()
+    {
+        CopyDirFiles(__DIR__ . '/gadgets', Application::getDocumentRoot() . '/bitrix/gadgets', true, true);
     }
 
     public function doUninstall()
     {
         try
         {
+            $this->UnInstallFiles();
+
             Main\ModuleManager::unRegisterModule($this->MODULE_ID);
         }
         catch (\Exception $e)
@@ -76,6 +85,11 @@ class petrenko_testdatacleaner extends CModule
         }
 
         return true;
+    }
+
+    function UnInstallFiles()
+    {
+        Directory::deleteDirectory(Application::getDocumentRoot() . '/bitrix/gadgets/' . static::getModuleId());
     }
 
     private function checkMinRequirements()
