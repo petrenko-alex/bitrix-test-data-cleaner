@@ -2,6 +2,7 @@
 
 use Bitrix\Main\Loader;
 use Petrenko\TestDataCleaner\Entities;
+use Petrenko\TestDataCleaner\TestDataCleaner;
 use Petrenko\TestDataCleaner\TestDataFilter;
 use Petrenko\TestDataCleaner\Tests\Environment;
 
@@ -70,6 +71,12 @@ class ServicePage
     // endregion
 
     // region Поиск тестовых элементов
+    public static function getTestElements(): array
+    {
+        $cleaner = new TestDataCleaner(['order', 'user']);
+        return $cleaner->get();
+    }
+
     public static function getTestIbTypes(): array
     {
         $testIblockType = new Entities\TestIblockType(new TestDataFilter());
