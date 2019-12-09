@@ -16,7 +16,7 @@ class TestDataCleaner
         $this->prepareEntities();
     }
 
-    private function prepareEntities()
+    private function prepareEntities(): void
     {
         $this->entities = array_filter($this->entities);
         $this->entities = array_unique($this->entities);
@@ -25,24 +25,24 @@ class TestDataCleaner
         $this->sortEntities();
     }
 
-    private function sortEntities()
+    private function sortEntities(): void
     {
         $correctOrder = EntitiesFactory::getOrderedEntities();
 
         uasort(
             $this->entities,
-            function ($val1, $val2) use ($correctOrder) {
+            static function ($val1, $val2) use ($correctOrder) {
                 return array_search($val1, $correctOrder) <=> array_search($val2, $correctOrder);
             }
         );
     }
 
-    public function clean()
+    public function clean(): void
     {
         // TODO: go foreach and clean
     }
 
-    public function show(): array
+    public function get(): array
     {
         $testElements = [];
 
