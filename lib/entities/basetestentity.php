@@ -28,5 +28,7 @@ abstract class BaseTestEntity
 
     abstract public function findElements(): array;
 
+    abstract public function getPublicName(): string;
+
     abstract protected function removeElements(): void;
 }

@@ -1,6 +1,7 @@
 <?php namespace Petrenko\TestDataCleaner\Entities;
 
 use CUserTypeEntity;
+use Bitrix\Main\Localization\Loc;
 
 // TODO: PHP Doc
 // TODO: move array_map in return of findElements to new func
@@ -118,5 +119,10 @@ class TestUf extends BaseTestEntity
         foreach ($this->elementsId as $elementId) {
             $ufField->Delete($elementId);
         }
+    }
+
+    public function getPublicName(): string
+    {
+        return Loc::getMessage('PETRENKO.TEST_DATA_CLEANER.ENTITIES.UF.NAME');
     }
 }

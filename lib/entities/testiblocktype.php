@@ -2,6 +2,7 @@
 
 use CIBlockType;
 use Bitrix\Iblock\TypeTable;
+use Bitrix\Main\Localization\Loc;
 
 // TODO: PHP Doc
 class TestIblockType extends BaseTestEntity
@@ -24,5 +25,10 @@ class TestIblockType extends BaseTestEntity
         {
             CIBlockType::Delete($elementId);
         }
+    }
+
+    public function getPublicName(): string
+    {
+        return Loc::getMessage('PETRENKO.TEST_DATA_CLEANER.ENTITIES.IBLOCK_TYPE.NAME');
     }
 }

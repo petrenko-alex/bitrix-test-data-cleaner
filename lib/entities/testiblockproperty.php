@@ -2,6 +2,7 @@
 
 use CIBlockProperty;
 use Bitrix\Iblock\PropertyTable;
+use Bitrix\Main\Localization\Loc;
 
 // TODO: PHP Doc
 class TestIblockProperty extends BaseTestEntity
@@ -24,5 +25,10 @@ class TestIblockProperty extends BaseTestEntity
         {
             CIBlockProperty::Delete($elementId);
         }
+    }
+
+    public function getPublicName(): string
+    {
+        return Loc::getMessage('PETRENKO.TEST_DATA_CLEANER.ENTITIES.IBLOCK_PROPERTY.NAME');
     }
 }

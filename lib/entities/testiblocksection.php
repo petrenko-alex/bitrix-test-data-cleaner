@@ -2,6 +2,7 @@
 
 use CIBlockSection;
 use Bitrix\Iblock\SectionTable;
+use Bitrix\Main\Localization\Loc;
 
 // TODO: PHP Doc
 class TestIblockSection extends BaseTestEntity
@@ -24,5 +25,10 @@ class TestIblockSection extends BaseTestEntity
         {
             CIBlockSection::Delete($elementId);
         }
+    }
+
+    public function getPublicName(): string
+    {
+        return Loc::getMessage('PETRENKO.TEST_DATA_CLEANER.ENTITIES.IBLOCK_SECTION.NAME');
     }
 }

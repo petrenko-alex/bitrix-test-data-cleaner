@@ -1,6 +1,7 @@
 <?php namespace Petrenko\TestDataCleaner\Entities;
 
 use Bitrix\Main\Loader;
+use Bitrix\Main\Localization\Loc;
 use Bitrix\Highloadblock\HighloadBlockTable;
 
 Loader::includeModule('highloadblock');
@@ -26,5 +27,10 @@ class TestHlb extends BaseTestEntity
         {
             HighloadBlockTable::delete($elementId);
         }
+    }
+
+    public function getPublicName(): string
+    {
+        return Loc::getMessage('PETRENKO.TEST_DATA_CLEANER.ENTITIES.HLB.NAME');
     }
 }

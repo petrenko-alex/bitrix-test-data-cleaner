@@ -3,6 +3,7 @@
 // TODO: PHP Doc
 use CUser;
 use Bitrix\Main\UserTable;
+use Bitrix\Main\Localization\Loc;
 
 class TestUser extends BaseTestEntity
 {
@@ -28,5 +29,10 @@ class TestUser extends BaseTestEntity
         {
             CUser::Delete($elementId);
         }
+    }
+
+    public function getPublicName(): string
+    {
+        return Loc::getMessage('PETRENKO.TEST_DATA_CLEANER.ENTITIES.USER.NAME');
     }
 }

@@ -1,0 +1,2 @@
+<?php
+$MESS['PETRENKO.TEST_DATA_CLEANER.ENTITIES.IBLOCK_PROPERTY.NAME'] = 'Свойство инфоблока';

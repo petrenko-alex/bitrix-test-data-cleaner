@@ -5,6 +5,7 @@ use Bitrix\Sale\Order;
 use Bitrix\Sale\Payment;
 use Bitrix\Sale\Shipment;
 use Bitrix\Sale\OrderTable;
+use Bitrix\Main\Localization\Loc;
 use Bitrix\Sale\Internals\OrderCouponsTable;
 use Bitrix\Sale\Internals\OrderDiscountDataTable;
 
@@ -63,5 +64,10 @@ class TestOrder extends BaseTestEntity
     {
         OrderDiscountDataTable::clearByOrder($order->getId());
         OrderCouponsTable::clearByOrder($order->getId());
+    }
+
+    public function getPublicName(): string
+    {
+        return Loc::getMessage('PETRENKO.TEST_DATA_CLEANER.ENTITIES.ORDER.NAME');
     }
 }
