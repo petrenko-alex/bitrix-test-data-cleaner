@@ -48,7 +48,9 @@ class TestDataCleaner
 
         foreach ($this->entities as $entity)
         {
-            $testElements[$entity] = [];
+            $entityData = [
+                'TOTAL_COUNT' => 0
+            ];
 
             $entityClass = EntitiesFactory::getClassByName($entity);
             if (!$entityClass)
@@ -59,7 +61,12 @@ class TestDataCleaner
                 continue;
 
             /** @var BaseTestEntity $testEntity */
-            $testElements[$entity] = $testEntity->findElements();
+            $entityData['ID'] = $testEntity->findElements();
+            $entityData['COUNT'] = count($entityData['ID']);
+            $entityData['PUBLIC_NAME'] = $testEntity->getPublicName();
+
+            $testElements['ENTITIES'][$entity] = $entityData;
+            $testElements['TOTAL_COUNT'] += $entityData['COUNT'];
         }
 
         return $testElements;
