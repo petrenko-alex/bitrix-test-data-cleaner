@@ -1,0 +1,44 @@
+.test-data-cleaner {
+    font-size: 13px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 5px;
+}
+
+.test-data-cleaner__header {
+    display: flex;
+    align-items: center;
+}
+
+.test-data-cleaner__total-clean {
+    width: 30%;
+    text-align: end;
+}
+
+.test-data-cleaner__entity {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 5px 0;
+}
+
+.test-data-cleaner__name {
+    width: 70%;
+}
+
+.test-data-cleaner__count {
+    width: 20%;
+}
+
+.test-data-cleaner__clean {
+}
+
+.delimiter {
+    margin: 5px;
+    border-bottom: 1px solid gray;
+}
+
+.w-70 {
+    width: 70% !important;
+}
